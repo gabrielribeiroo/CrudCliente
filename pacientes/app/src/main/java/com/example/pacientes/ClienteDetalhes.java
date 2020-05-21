@@ -9,19 +9,19 @@ import android.widget.TextView;
 
 public class ClienteDetalhes extends AppCompatActivity {
     private Paciente p;
-    private EditText txtNome;
-    private EditText txtCPF;
-    private EditText txtEmail;
-    private EditText txtTelefone;
+    private TextView txtNome;
+    private TextView txtCPF;
+    private TextView txtEmail;
+    private TextView txtTelefone;
     private TextView txtEndereco;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cliente_detalhes);
-        this.txtNome = (EditText) findViewById(R.id.txtNome);
-        this.txtCPF = (EditText) findViewById(R.id.txtCPF);
-        this.txtEmail = (EditText) findViewById(R.id.txtEmail);
-        this.txtTelefone = (EditText) findViewById(R.id.txtTel);
+        this.txtNome = (TextView) findViewById(R.id.txtNome);
+        this.txtCPF = (TextView) findViewById(R.id.txtCPF);
+        this.txtEmail = (TextView) findViewById(R.id.txtEmail);
+        this.txtTelefone = (TextView) findViewById(R.id.txtTel);
         this.txtEndereco = (TextView) findViewById(R.id.txtEndereco);
         Intent i = getIntent();
         Bundle args = i.getBundleExtra("BUNDLE");
