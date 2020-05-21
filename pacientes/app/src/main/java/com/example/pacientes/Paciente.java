@@ -16,18 +16,12 @@ public class Paciente implements Serializable {
 
     @Override
     public String toString() {
-        return "Paciente{" +
-                "nomeCompleto='" + nomeCompleto + '\'' +
-                ", CPF='" + CPF + '\'' +
-                ", email='" + email + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", cep='" + cep + '\'' +
-                ", rua='" + rua + '\'' +
-                ", numero='" + numero + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", cidadeEstado='" + cidadeEstado + '\'' +
-                '}';
+        return "Cep:" + this.cep + " " +
+                "Rua:" + this.rua + " " +
+                "Num:" + this.numero + " " +
+                "Compl:" + this.complemento + " "+
+                "Bairro:" + this.bairro + " " +
+                "CidadeEstado:" + this.cidadeEstado;
     }
 
     public String getNomeCompleto() {
