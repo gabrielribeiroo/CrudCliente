@@ -1,6 +1,7 @@
 package com.example.pacientes;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Paciente implements Serializable {
     private String nomeCompleto;
@@ -13,6 +14,15 @@ public class Paciente implements Serializable {
     private String complemento;
     private String bairro;
     private String cidadeEstado;
+    private ArrayList<Historico> historico;
+
+    public ArrayList<Historico> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(ArrayList<Historico> historico) {
+        this.historico = historico;
+    }
 
     @Override
     public String toString() {

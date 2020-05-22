@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">pacientes</string>
+    <string-array name="titulos">
+        <item>CONSULTA</item>
+        <item>PROCEDIMENTO ESTETICO</item>
+        <item>PROCEDIMENTO MEDICO</item>
+        <item>RETORNO</item>
+        <item>OUTROS</item>
+    </string-array>
 </resources>

@@ -104,6 +104,7 @@ public class formulario extends AppCompatActivity {
 
     private Paciente salvaPaciente() {
         Paciente paciente = new Paciente();
+
         if (txtNomeCompleto.getText().toString().isEmpty() == false) {
             paciente.setNomeCompleto(txtNomeCompleto.getText().toString());
         } else {
