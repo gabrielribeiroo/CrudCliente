@@ -13,10 +13,8 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 import java.text.DateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class adicionarHistorico extends AppCompatActivity {
     private Button btnAdd;
@@ -39,7 +37,7 @@ public class adicionarHistorico extends AppCompatActivity {
         Bundle args = i.getBundleExtra("BUNDLE");
         p = (Paciente) args.getSerializable("paciente");
 
-        this.btnAdd = (Button) findViewById(R.id.btnAdd);
+        this.btnAdd = (Button) findViewById(R.id.btnAlterar);
         this.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

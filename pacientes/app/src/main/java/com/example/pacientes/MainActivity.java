@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent i = new Intent (MainActivity.this, ClienteDetalhes.class);
                                 Bundle args = new Bundle();
                                 args.putSerializable("paciente",(Serializable) p);
+                                args.putSerializable("lista", (Serializable) listaPacientes);
                                 i.putExtra("BUNDLE", args);
                                 startActivity(i);
                             }

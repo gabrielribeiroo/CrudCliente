@@ -33,7 +33,7 @@ public class formulario extends AppCompatActivity {
         Intent i = getIntent();
         Bundle args = i.getBundleExtra("BUNDLE");
         listaPaciente = (ArrayList<Paciente>) args.getSerializable("lista");
-        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnAdd = (Button) findViewById(R.id.btnAlterar);
         txtNomeCompleto = (EditText) findViewById(R.id.txtNome);
         txtCPF = (EditText) findViewById(R.id.txtCPF);
         txtEmail = (EditText) findViewById(R.id.txtEmail);

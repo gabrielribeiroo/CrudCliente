@@ -10,13 +10,6 @@ public class Historico implements Serializable {
     private String Detalhe;
     private String Cpf;
 
-    public Historico(String titulo, String data, String detalhe, String cpf) {
-        Titulo = titulo;
-        this.data = data;
-        Detalhe = detalhe;
-        Cpf = cpf;
-    }
-
     public String getCpf() {
         return Cpf;
     }
