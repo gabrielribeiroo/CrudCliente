@@ -22,6 +22,7 @@ public class ClienteDetalhes extends AppCompatActivity {
     private Button btnAddHis;
     private Button btnVerHis;
     private Button btnHome;
+    private Button btnEdit;
     private Paciente paciente;
     private ArrayList<Paciente> listaPacientes = new ArrayList<>();
 
@@ -37,9 +38,22 @@ public class ClienteDetalhes extends AppCompatActivity {
         this.btnAddHis = (Button) findViewById(R.id.btnAddHis);
         this.btnVerHis = (Button) findViewById(R.id.btnVerHis);
         this.btnHome = (Button) findViewById(R.id.btnHome);
+        this.btnEdit = (Button) findViewById(R.id.btnEdit);
         //funcao para carregar as informacoes atuais dos objetos vindos das outras activitys
         onLoad();
         setText(p);
+        this.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ClienteDetalhes.this, ClienteEditar.class);
+                Bundle args = new Bundle();
+                args.putSerializable("lista", (Serializable) listaPacientes);
+                args.putSerializable("paciente", (Serializable) p);
+                i.putExtra("BUNDLE", args);
+                startActivity(i);
+            }
+        });
+
         this.btnAddHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
