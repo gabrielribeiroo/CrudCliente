@@ -41,23 +41,23 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!textPesquisa.getText().toString().isEmpty()) {
                     boolean validarExistencia = false;
-                    for(Paciente p : listaPacientes){
-                        if(textPesquisa.getText().toString().equals(p.getCPF())){
+                    for (Paciente p : listaPacientes) {
+                        if (textPesquisa.getText().toString().equals(p.getCPF())) {
                             validarExistencia = true;
                         }
                     }
-                    if(validarExistencia){
-                        for(Paciente p : listaPacientes){
-                            if(textPesquisa.getText().toString().equals(p.getCPF())){
-                                Intent i = new Intent (MainActivity.this, ClienteDetalhes.class);
+                    if (validarExistencia) {
+                        for (Paciente p : listaPacientes) {
+                            if (textPesquisa.getText().toString().equals(p.getCPF())) {
+                                Intent i = new Intent(MainActivity.this, ClienteDetalhes.class);
                                 Bundle args = new Bundle();
-                                args.putSerializable("paciente",(Serializable) p);
+                                args.putSerializable("paciente", (Serializable) p);
                                 args.putSerializable("lista", (Serializable) listaPacientes);
                                 i.putExtra("BUNDLE", args);
                                 startActivity(i);
                             }
                         }
-                    }else{
+                    } else {
                         Toast.makeText(MainActivity.this, "Nao localizado", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -70,12 +70,7 @@ public class MainActivity extends AppCompatActivity {
         Intent i = getIntent();
         Bundle args = i.getBundleExtra("BUNDLE");
         if (args != null) {
-            ArrayList<Paciente> listaPaciente = (ArrayList<Paciente>) args.getSerializable("lista");
-            if (listaPaciente != null) {
-                for (Paciente p : listaPaciente) {
-                    listaPacientes.add(p);
-                }
-            }
+            listaPacientes = (ArrayList<Paciente>) args.getSerializable("lista");
         }
     }
 

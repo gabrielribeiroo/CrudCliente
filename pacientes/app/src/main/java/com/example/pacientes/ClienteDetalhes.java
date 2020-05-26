@@ -24,7 +24,8 @@ public class ClienteDetalhes extends AppCompatActivity {
     private Button btnHome;
     private Paciente paciente;
     private ArrayList<Paciente> listaPacientes = new ArrayList<>();
-     @Override
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cliente_detalhes);
@@ -36,17 +37,16 @@ public class ClienteDetalhes extends AppCompatActivity {
         this.btnAddHis = (Button) findViewById(R.id.btnAddHis);
         this.btnVerHis = (Button) findViewById(R.id.btnVerHis);
         this.btnHome = (Button) findViewById(R.id.btnHome);
+        //funcao para carregar as informacoes atuais dos objetos vindos das outras activitys
         onLoad();
-        Intent i = getIntent();
-        Bundle args = i.getBundleExtra("BUNDLE");
-        p = (Paciente) args.getSerializable("paciente");
         setText(p);
         this.btnAddHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent (ClienteDetalhes.this, adicionarHistorico.class);
+                Intent i = new Intent(ClienteDetalhes.this, adicionarHistorico.class);
                 Bundle args = new Bundle();
-                args.putSerializable("paciente",(Serializable) p);
+                args.putSerializable("lista", (Serializable) listaPacientes);
+                args.putSerializable("paciente", (Serializable) p);
                 i.putExtra("BUNDLE", args);
                 startActivity(i);
             }
@@ -54,35 +54,45 @@ public class ClienteDetalhes extends AppCompatActivity {
         this.btnVerHis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent (ClienteDetalhes.this, listarHistorico.class);
+                Intent i = new Intent(ClienteDetalhes.this, listarHistorico.class);
                 Bundle args = new Bundle();
-                args.putSerializable("paciente",(Serializable) p);
+                args.putSerializable("lista", (Serializable) listaPacientes);
+                args.putSerializable("paciente", (Serializable) p);
                 i.putExtra("BUNDLE", args);
+                startActivity(i);
+            }
+        });
+        this.btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ClienteDetalhes.this, MainActivity.class);
+                Bundle args = new Bundle();
+                args.putSerializable("lista", (Serializable) listaPacientes);
+                i.putExtra("BUNDLE", args);
+                //encaminho os objetos atualizados para a activity de cliente detalhe
                 startActivity(i);
             }
         });
     }
 
-    private void setText(Paciente p){
-    txtNome.setText(p.getNomeCompleto());
-    txtCPF.setText(p.getCPF());
-    txtEmail.setText(p.getEmail());
-    txtTelefone.setText(p.getTelefone());
-    txtEndereco.setText(p.toString());
-    }
-    private void OnLoad() {
 
+    private void setText(Paciente p) {
+        txtNome.setText(p.getNomeCompleto());
+        txtCPF.setText(p.getCPF());
+        txtEmail.setText(p.getEmail());
+        txtTelefone.setText(p.getTelefone());
+        txtEndereco.setText(p.toString());
+    }
+
+    private void onLoad() {
+        //recebo a INtent gerada
         Intent i = getIntent();
         Bundle args = i.getBundleExtra("BUNDLE");
+        //valido se existe algum dado a ser processado
         if (args != null) {
-            ArrayList<Paciente> listaPaciente = (ArrayList<Paciente>) args.getSerializable("lista");
+            //atrelo a lista atualizada e o paciente atualizado
+            listaPacientes = (ArrayList<Paciente>) args.getSerializable("lista");
             p = (Paciente) args.getSerializable("paciente");
-            //Fazer a referencia de todas a paginas de array para obterem as listas e pacientes atualizado a toda iteracao
-            if (listaPaciente != null) {
-                for (Paciente p : listaPaciente) {
-                    listaPacientes.add(p);
-                }
-            }
         }
     }
 }

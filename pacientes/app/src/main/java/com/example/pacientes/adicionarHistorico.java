@@ -36,26 +36,43 @@ public class adicionarHistorico extends AppCompatActivity {
         Intent i = getIntent();
         Bundle args = i.getBundleExtra("BUNDLE");
         p = (Paciente) args.getSerializable("paciente");
+        final ArrayList<Paciente> listaPaciente = (ArrayList<Paciente>) args.getSerializable("lista");
 
         this.btnAdd = (Button) findViewById(R.id.btnAlterar);
         this.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Chamada da funcao para salvar os dados da consulta
                 Historico his = salvarHistorico();
                 if (his != null) {
+                    //caso o objeto tenha sido salvo com sucesso
                     list = p.getHistorico();
-                    if(list == null){
+                    //minha lista com os historicos do objeto do paciente e atrelada a uma lista interna da classe
+                    if (list == null) {
+                        //caso essa lista esteja vazia ele adiciona um objeto novo
                         p.setHistorico(new ArrayList<Historico>());
                     }
                     list = p.getHistorico();
+                    //adiciono o historico a essa lista
                     list.add(his);
+                   //entao vou atualizar a minha lista de pacientes com as informacoes atuais desse paciente
+                    for (Paciente paciente : listaPaciente) {
+                        if (p.getCPF().equals(paciente.getCPF())) {
+                            //quando o paciente for localizado ele e removido da minha lista
+                            paciente.setHistorico(list);
+                        }
+                    }
+                    //informa que a registro foi feito com sucesso
                     Toast.makeText(adicionarHistorico.this, "Historico adicionado", Toast.LENGTH_LONG).show();
                     Intent i = new Intent(adicionarHistorico.this, ClienteDetalhes.class);
                     Bundle args = new Bundle();
                     args.putSerializable("paciente", (Serializable) p);
+                    args.putSerializable("lista", (Serializable) listaPaciente);
                     i.putExtra("BUNDLE", args);
+                    //encaminho os objetos atualizados para a activity de cliente detalhe
                     startActivity(i);
                 } else {
+                    //mostra a falha ao adicionar o historico e mantem na mesma pagina
                     Toast.makeText(adicionarHistorico.this, "Falha ao Adicionar historico ao Paciente", Toast.LENGTH_LONG).show();
                 }
             }
@@ -64,7 +81,9 @@ public class adicionarHistorico extends AppCompatActivity {
     }
 
     public Historico salvarHistorico() {
+        //cria um objeto vazio
         Historico hist = new Historico();
+        //valida que o campo de Detalhe esteja preenchido
         if (txtDetalhe.getText().toString().isEmpty() == false) {
             hist.setDetalhe(txtDetalhe.getText().toString());
             Calendar calendar = Calendar.getInstance();
@@ -72,6 +91,7 @@ public class adicionarHistorico extends AppCompatActivity {
             hist.setData(dataAtual);
             hist.setTitulo(spinner.getSelectedItem().toString());
             hist.setCpf(p.getCPF());
+            //Retorna o objeto do tipo historico
             return hist;
         } else {
             return null;

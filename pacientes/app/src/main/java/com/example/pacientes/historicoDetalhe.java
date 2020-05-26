@@ -20,6 +20,7 @@ public class historicoDetalhe extends AppCompatActivity {
     private Historico h;
     private ArrayList<Historico> list = new ArrayList<>();
     private Button btnAlterar;
+    private ArrayList<Paciente> listaPacientes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,7 @@ public class historicoDetalhe extends AppCompatActivity {
         txtDetalhe = (EditText) findViewById(R.id.txtDetalhe);
         txtTitulo = (EditText) findViewById(R.id.txtTitulo);
         Intent i = getIntent();
-        Bundle args = i.getBundleExtra("BUNDLE");
-        p = (Paciente) args.getSerializable("paciente");
-        h = (Historico) args.getSerializable("historico");
+        onLoad();
         txtTitulo.setText(h.getTitulo());
         txtDetalhe.setText(h.getDetalhe());
         btnAlterar = (Button) findViewById(R.id.btnAlterar);
@@ -38,19 +37,41 @@ public class historicoDetalhe extends AppCompatActivity {
         this.btnAlterar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(Historico his : p.getHistorico()){
-                    if(his.getTitulo().equals(h.getTitulo()) && his.getData().equals(h.getData()) && his.getDetalhe().equals(h.getDetalhe())){
+                ArrayList<Historico> list = p.getHistorico();
+                for (Historico his : list) {
+                    if (his.getTitulo().equals(h.getTitulo()) && his.getData().equals(h.getData()) && his.getDetalhe().equals(h.getDetalhe()) && his.getCpf().equals(h.getCpf())) {
                         his.setTitulo(txtTitulo.getText().toString());
                         his.setDetalhe(txtDetalhe.getText().toString());
-                        Intent i = new Intent (historicoDetalhe.this, ClienteDetalhes.class);
-                        Bundle args = new Bundle();
-                        args.putSerializable("paciente",(Serializable) p);
-                        i.putExtra("BUNDLE", args);
-                        startActivity(i);
                     }
                 }
+
+                for (Paciente paciente : listaPacientes) {
+                    if (p.getCPF().equals(paciente.getCPF())) {
+                        p.setHistorico(list);
+                        paciente.setHistorico(list);
+                    }
+                }
+                Intent i = new Intent(historicoDetalhe.this, ClienteDetalhes.class);
+                Bundle args = new Bundle();
+                args.putSerializable("lista", (Serializable) listaPacientes);
+                args.putSerializable("paciente", (Serializable) p);
+                i.putExtra("BUNDLE", args);
+                startActivity(i);
             }
         });
+    }
+
+    private void onLoad() {
+        //recebo a INtent gerada
+        Intent i = getIntent();
+        Bundle args = i.getBundleExtra("BUNDLE");
+        //valido se existe algum dado a ser processado
+        if (args != null) {
+            //atrelo a lista atualizada e o paciente atualizado
+            listaPacientes = (ArrayList<Paciente>) args.getSerializable("lista");
+            p = (Paciente) args.getSerializable("paciente");
+            h = (Historico) args.getSerializable("historico");
+        }
     }
 
 }
